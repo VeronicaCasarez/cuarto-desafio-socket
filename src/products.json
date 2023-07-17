@@ -1,8 +1,19 @@
-[
-  {
-    "name": "Chocolate"
-  },
-  {
-    "name": "Gaseosas"
-  }
+[ {
+  "name": "Nombre del producto 1",
+  "title": "Título del producto 1",
+  "description": "Descripción del producto 1",
+  "price": 10.99,
+  "code":"P001",
+  "stock":50,
+  "thumbnail": "/imagen1.jpg"
+},
+{
+  "name": "Nombre del producto 2",
+  "title": "Título del producto 2",
+  "description": "Descripción del producto 2",
+  "price": 10.99,
+  "code":"P001",
+  "stock":50,
+  "thumbnail": "/imagen.2jpg"
+}
 ]

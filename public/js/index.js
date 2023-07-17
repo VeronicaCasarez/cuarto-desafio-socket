@@ -8,27 +8,27 @@ socket.on('connection', () => {
 });
 
 
-// document.getElementById('productForm').addEventListener('submit', (event) => {
-//   event.preventDefault();
-//   const productName = document.getElementById('productName').value;
+document.getElementById('productForm').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const productName = document.getElementById('productName').value;
 
-//   // Enviar el producto al servidor a través del socket
-//   socket.emit('agregarProducto', { name: productName });
+  // Enviar el producto al servidor a través del socket
+  socket.emit('agregarProducto', { name: productName });
 
-//   // Limpiar el campo del formulario
-//   document.getElementById('productName').value = '';
-// });
+  // Limpiar el campo del formulario
+  document.getElementById('productName').value = '';
+});
 
-// socket.on('nuevoProducto', (data) => {
-//   const productList = document.getElementById('productList');
-//   productList.innerHTML = '';
+socket.on('nuevoProducto', (data) => {
+  const productList = document.getElementById('productList');
+  productList.innerHTML = '';
 
-//   data.products.forEach((product) => {
-//     const li = document.createElement('li');
-//     li.textContent = product.name;
-//     productList.appendChild(li);
-//   });
-// });
+  data.products.forEach((product) => {
+    const li = document.createElement('li');
+    li.textContent = product.name;
+    productList.appendChild(li);
+  });
+});
 
 
 

@@ -10,12 +10,20 @@ export function obtenerListaDeProductos() {
   return data;
 }
 
-export function guardarProducto({ name }) {
+export function guardarProducto({name,title,description,price,code,stock,thumbnail}){ 
   const filePath = path.join(__dirname, './products.json');
   const fileContent = fs.readFileSync(filePath, 'utf8');
   const data = JSON.parse(fileContent);
 
-  data.push({ "name": name });
+  data.push({
+    name: name,
+    title: title,
+    description: description,
+    price: price,   
+    code:code,
+    stock:stock,   
+    thumbnail: thumbnail,
+  });
 
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
 }
