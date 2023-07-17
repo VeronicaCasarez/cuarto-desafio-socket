@@ -1,0 +1,13 @@
+  <h1>Realtime Productos</h1>
+
+<form id="productForm" method="POST" action="/realtimeproducts">
+  <input type="text" id="productName" name="name" placeholder="Nombre del producto" />
+  <button type="submit">Agregar</button>
+</form>
+
+  <ul id="productList">
+    {{#each products}}
+      <li>{{this.name}}</li>
+    {{/each}}
+  </ul>
+
