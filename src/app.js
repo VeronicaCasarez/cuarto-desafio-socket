@@ -6,10 +6,12 @@ import viewsRealTime from "./routes/viewsrealTime.router.js";
 import { Server } from "socket.io";
 import { createServer } from "http";
 
+import { guardarProducto } from "./services/productUtils.js";
+
 const app = express();
 const httpServer = createServer(app);
 
-const PORT = 8081;
+const PORT = 3003;
 
 // Configurar el motor de plantillas Handlebars
 app.engine("handlebars", engine());
@@ -40,16 +42,32 @@ socketServer.on("connection", (socket) => {
   socket.on('mensaje', (data) => {
     console.log('Mensaje recibido:', data);
 
-
     // Enviar una respuesta al cliente
     socket.emit('respuesta', 'Mensaje recibido correctamente');
+  });
+
+   // Escuchar evento 'agregarProducto' y emitir 'nuevoProductoAgregado'
+   socket.on("agregarProducto", (newProduct) => {
+    console.log("Nuevo producto recibido backend:", newProduct);
+    guardarProducto(newProduct);
+    // Agregar el nuevo producto a la lista de productos
+    socket.emit("nuevoProductoAgregado", newProduct);
+  });
+
+  socket.on("productoEliminado", (productID) => {
+    // Eliminar el producto de la lista en el cliente
+    const productoElement = document.querySelector(`[data-id="${productID}"]`);
+    if (productoElement) {
+      productoElement.parentElement.remove();
+    }
   });
 
   socket.on("disconnect", () => {
     console.log("Cliente desconectado");
   });
 });
-// Iniciar el servidor HTTP
+
+//Iniciar el servidor HTTP
 httpServer.listen(PORT, () => {
   console.log(`Servidor en ejecución en http://localhost:${PORT}`);
 });
