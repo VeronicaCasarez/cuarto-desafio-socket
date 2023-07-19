@@ -58,19 +58,6 @@ socket.on("initialProductList", (productList) => {
 });
 
 
-// Actualizar la lista de productos
-// function updateProductList(products) {
-//   const productList = document.getElementById("productList");
-//   productList.innerHTML = "";
-
-//   products.forEach((product) => {
-//     const li = document.createElement("li");
-//     li.textContent = product.name;
-//     productList.appendChild(li);
-//   });
-// }
-
-
 
 // Actualizar la lista de productos
 function updateProductList(products) {
@@ -78,33 +65,35 @@ function updateProductList(products) {
   productList.innerHTML = "";
 
   products.forEach((product) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
+    const div = document.createElement("div");
+    div.innerHTML = `
       <h3>${product.name}</h3>
       <p>Título: ${product.title}</p>
       <p>Descripción: ${product.description}</p>
       <p>Precio: ${product.price}</p>
-      <p>Precio: ${product.code}</p>
-      <p>Precio: ${product.stock}</p>
+      <p>Código: ${product.code}</p>
+      <p>Stock: ${product.stock}</p>
       <p>Thumbnail: ${product.thumbnail}</p>
-      <button class="btnEliminar" data-id="${product.id}">Eliminar</button>
+      <button type="button" class="btnEliminar" data-code="${product.code}">Eliminar Producto</button>
     `;
 
-    // Agregar el evento de clic al botón de eliminación
-    const btnEliminar = li.querySelector(".btnEliminar");
-    btnEliminar.addEventListener("click", () => {
-      eliminarProducto(product.id);
-    });
+    
 
-    productList.appendChild(li);
-  });
+   productList.appendChild(div);
+ });
+
+//Agregar el evento de click al botón de eliminación
+let btnEliminar = document.querySelectorAll(".btnEliminar");
+btnEliminar.addEventListener("click", (event) => {
+  const productCode = event.target.getAttribute("data-code");
+  console.log(productCode)
+  eliminarProducto(productCode);
+});
 }
 
-// Función para eliminar un producto
-function eliminarProducto(productID) {
-  // Emitir el evento 'eliminarProducto' al servidor con el ID del producto
-  socket.emit("eliminarProducto", productID);
-}
+function eliminarProducto(productCode) {
 
+ socket.emit("eliminarProducto", +productCode);
+}
 
 

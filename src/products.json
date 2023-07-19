@@ -34,5 +34,23 @@
     "code": "P004",
     "stock": "58",
     "thumbnail": "/imagen4.jpg"
+  },
+  {
+    "name": " v bc",
+    "title": "vcbvc b",
+    "description": "vbvc",
+    "price": "20",
+    "code": "20",
+    "stock": "56",
+    "thumbnail": "/imagen3.jpg"
+  },
+  {
+    "name": "Gaseosas",
+    "title": "greg",
+    "description": "grg",
+    "price": "20",
+    "code": "52",
+    "stock": "53",
+    "thumbnail": "/imagen3.jpg"
   }
 ]

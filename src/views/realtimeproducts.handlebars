@@ -61,9 +61,9 @@
 
     <button type="submit">Agregar</button>
   </form>
-  <ul id="productList">
+  <div id="productList">
     {{#each products}}
-      <li>
+      <div>
         <h3>{{name}}</h3>
         <p>Título: {{title}}</p>
         <p>Descripción: {{description}}</p>
@@ -71,9 +71,9 @@
         <p>Codigo: {{code}}</p>
         <p>Stock: {{stock}}</p>
         <img src={{thumbnail}} />
-        <button class="btnEliminar" data-id="{{id}}">Eliminar</button>
-      </li>
+        <button type ="button" class="btnEliminar" data-code="{{product.code}}">Eliminar Producto</button>
+      </div>
     {{/each}}
-  </ul>
+  </div>
 
 </div>

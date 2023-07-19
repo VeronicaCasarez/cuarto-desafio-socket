@@ -7,6 +7,9 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 
 import { guardarProducto } from "./services/productUtils.js";
+import fs from "fs";
+
+import productos from "./products.json" assert {type : "json"}
 
 const app = express();
 const httpServer = createServer(app);
@@ -27,7 +30,7 @@ app.use(express.json());
 
 // Configurar las rutas para las vistas
 app.use("/", viewsRoutes);
-app.use("/", viewsRealTime);
+app.use("/realtimeproducts", viewsRealTime);
 
 
 
@@ -54,13 +57,13 @@ socketServer.on("connection", (socket) => {
     socket.emit("nuevoProductoAgregado", newProduct);
   });
 
-  socket.on("productoEliminado", (productID) => {
-    // Eliminar el producto de la lista en el cliente
-    const productoElement = document.querySelector(`[data-id="${productID}"]`);
-    if (productoElement) {
-      productoElement.parentElement.remove();
-    }
-  });
+  socket.on("eliminarProducto",(productCode)=>{
+    let indexProducto = productos.findIndex((producto)=>producto.code === productCode)
+    productos.splice(indexProducto,1)
+    fs.writeFileSync("productos.json",JSON.stringify(productos))
+})
+
+// socket.emit("update-products",productos)
 
   socket.on("disconnect", () => {
     console.log("Cliente desconectado");
