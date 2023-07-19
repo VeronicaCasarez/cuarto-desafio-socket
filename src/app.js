@@ -6,10 +6,10 @@ import viewsRealTime from "./routes/viewsrealTime.router.js";
 import { Server } from "socket.io";
 import { createServer } from "http";
 
-import { guardarProducto } from "./services/productUtils.js";
-import fs from "fs";
+import { guardarProducto,eliminarProducto } from "./services/productUtils.js";
 
-import productos from "./products.json" assert {type : "json"}
+
+
 
 const app = express();
 const httpServer = createServer(app);
@@ -57,11 +57,12 @@ socketServer.on("connection", (socket) => {
     socket.emit("nuevoProductoAgregado", newProduct);
   });
 
-  socket.on("eliminarProducto",(productCode)=>{
-    let indexProducto = productos.findIndex((producto)=>producto.code === productCode)
-    productos.splice(indexProducto,1)
-    fs.writeFileSync("productos.json",JSON.stringify(productos))
-})
+  
+    socket.on("eliminarProducto", productId => {
+        const {id} = productId
+        eliminarProducto(id) // fn que borra productos en services
+        socket.emit('eliminarProducto', id)
+    })
 
 // socket.emit("update-products",productos)
 

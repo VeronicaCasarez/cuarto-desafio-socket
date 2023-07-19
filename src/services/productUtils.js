@@ -29,19 +29,16 @@ export function guardarProducto({name,title,description,price,code,stock,thumbna
 }
 
 
-// Función para eliminar un producto por su código y retornar el array actualizado de productos
-export function eliminarProducto(productCode) {
-  let data = getProductsFromFile();
+// Función para eliminar un producto 
+export function eliminarProducto (pid) {
+  const filePath = path.join(__dirname, './products.json')
+  const fileContent = fs.readFileSync(filePath, 'utf-8')
+  const data = JSON.parse(fileContent)
 
-  // Filtrar los productos excluyendo el que tiene el código a eliminar
-  data = data.filter((product) => product.code !== productCode);
-
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-
-  // Retornar el array actualizado de productos
-  return data;
+  const index = data.findIndex(product => product.id === pid)
+  data.splice(index, 1)
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8')
 }
-
 
 
 

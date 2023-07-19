@@ -68,6 +68,7 @@ function updateProductList(products) {
     const div = document.createElement("div");
     div.innerHTML = `
       <h3>${product.name}</h3>
+      
       <p>Título: ${product.title}</p>
       <p>Descripción: ${product.description}</p>
       <p>Precio: ${product.price}</p>
@@ -77,23 +78,32 @@ function updateProductList(products) {
       <button type="button" class="btnEliminar" data-code="${product.code}">Eliminar Producto</button>
     `;
 
-    
 
    productList.appendChild(div);
+
+
  });
 
-//Agregar el evento de click al botón de eliminación
-let btnEliminar = document.querySelectorAll(".btnEliminar");
-btnEliminar.addEventListener("click", (event) => {
-  const productCode = event.target.getAttribute("data-code");
-  console.log(productCode)
-  eliminarProducto(productCode);
-});
+
 }
 
-function eliminarProducto(productCode) {
 
- socket.emit("eliminarProducto", +productCode);
-}
+const deleteButton = document.querySelectorAll(".btnEliminar")
+deleteButton.forEach(button => {
+    button.addEventListener("click", () => {
+        const id = parseInt(button.id)
+        const productId = {
+            id: id
+        }
+        //envio el socket para recibirlo en el servidor
+        socket.emit('eliminarProducto', productId)
+        //fuerzo el refresh para que se actualice la lista. 
+        location.reload()
+    })
+})
+
+
+
+
 
 
