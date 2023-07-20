@@ -10,7 +10,9 @@ socket.on('connection', () => {
 
 document.getElementById('productForm').addEventListener('submit', (event) => {
   event.preventDefault();
- 
+
+
+  const productId = document.getElementById("productId").value;
   const productName = document.getElementById("productName").value;
   const productTitle = document.getElementById("productTitle").value;
   const productDescription = document.getElementById("productDescription").value;
@@ -19,8 +21,10 @@ document.getElementById('productForm').addEventListener('submit', (event) => {
   const productStock = document.getElementById("productStock").value;
   const productThumbnail = document.getElementById("productThumbnail").value;
 
+
   console.log(
     "Nuevo producto agregado:",
+    productId,
     productName,
     productTitle,
     productDescription,
@@ -32,6 +36,7 @@ document.getElementById('productForm').addEventListener('submit', (event) => {
 
    // Enviar el producto al servidor a través del socket
    socket.emit("agregarProducto", {
+    id:productId,
     name: productName,
     title: productTitle,
     description: productDescription,
@@ -42,6 +47,7 @@ document.getElementById('productForm').addEventListener('submit', (event) => {
   });
 
   // Limpiar el campo del formulario
+  document.getElementById("productId").value = "";
   document.getElementById("productName").value = "";
   document.getElementById("productTitle").value = "";
   document.getElementById("productDescription").value = "";
@@ -68,14 +74,14 @@ function updateProductList(products) {
     const div = document.createElement("div");
     div.innerHTML = `
       <h3>${product.name}</h3>
-      
+      <p>Id: ${product.id}</p>
       <p>Título: ${product.title}</p>
       <p>Descripción: ${product.description}</p>
       <p>Precio: ${product.price}</p>
       <p>Código: ${product.code}</p>
       <p>Stock: ${product.stock}</p>
       <p>Thumbnail: ${product.thumbnail}</p>
-      <button type="button" class="btnEliminar" data-code="${product.code}">Eliminar Producto</button>
+      <button type="button" class="btnEliminar" data-id="${product.id}">Eliminar Producto</button>
     `;
 
 

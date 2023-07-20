@@ -2,6 +2,15 @@
   <h1>Realtime Productos</h1>
 
   <form id="productForm" method="POST" action="/realtimeproducts">
+
+    <label for="productId">Id del producto:</label>
+    <input
+      type="number"
+      id="productId"
+      name="name"
+      placeholder="Id del producto"
+    />
+
     <label for="productName">Nombre del producto:</label>
     <input
       type="text"
@@ -65,13 +74,14 @@
     {{#each products}}
       <div>
         <h3>{{name}}</h3>
+        <p>Id: {{id}}</p>
         <p>Título: {{title}}</p>
         <p>Descripción: {{description}}</p>
         <p>Precio: {{price}}</p>
         <p>Codigo: {{code}}</p>
         <p>Stock: {{stock}}</p>
         <img src={{thumbnail}} />
-        <button type ="button" class="btnEliminar" data-code="{{product.code}}">Eliminar Producto</button>
+        <button type ="button" class="btnEliminar" data-id="{{product.id}}">Eliminar Producto</button>
       </div>
     {{/each}}
   </div>

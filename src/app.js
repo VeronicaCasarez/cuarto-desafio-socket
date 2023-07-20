@@ -14,7 +14,7 @@ import { guardarProducto,eliminarProducto } from "./services/productUtils.js";
 const app = express();
 const httpServer = createServer(app);
 
-const PORT = 3003;
+const PORT = 3020;
 
 // Configurar el motor de plantillas Handlebars
 app.engine("handlebars", engine());

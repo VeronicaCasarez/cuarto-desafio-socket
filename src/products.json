@@ -1,12 +1,12 @@
 [
   {
     "id": 1,
-    "name": "Nombre del producto 1",
-    "title": "Título del producto 1",
-    "description": "Descripción del producto 1",
-    "price": 10.99,
-    "code": "P001",
-    "stock": 50,
-    "thumbnail": "/imagen1.jpg"
+    "name": "gerg",
+    "title": "gerg",
+    "description": "gerg",
+    "price": "20",
+    "code": "22",
+    "stock": "12",
+    "thumbnail": "/imagen3.jpg"
   }
 ]
