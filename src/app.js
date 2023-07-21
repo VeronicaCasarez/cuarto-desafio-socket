@@ -57,14 +57,12 @@ socketServer.on("connection", (socket) => {
     socket.emit("nuevoProductoAgregado", newProduct);
   });
 
+  socket.on('eliminarProducto',(  productId) => {
+    const id = productId;
+    eliminarProducto(id); // Llamar a la función eliminarProducto en services/productUtils.js
+  });
   
-    socket.on("eliminarProducto", productId => {
-        const {id} = productId
-        eliminarProducto(id) // fn que borra productos en services
-        socket.emit('eliminarProducto', id)
-    })
-
-// socket.emit("update-products",productos)
+ 
 
   socket.on("disconnect", () => {
     console.log("Cliente desconectado");

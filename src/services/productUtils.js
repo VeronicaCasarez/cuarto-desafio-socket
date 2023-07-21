@@ -31,15 +31,21 @@ export function guardarProducto({id,name,title,description,price,code,stock,thum
 
 
 // Función para eliminar un producto 
-export function eliminarProducto (id) {
-  const filePath = path.join(__dirname, './products.json')
-  const fileContent = fs.readFileSync(filePath, 'utf-8')
-  const data = JSON.parse(fileContent)
+export function eliminarProducto(id) {
+  console.log('Eliminar producto con ID:', id); // Verifica que el ID se haya recibido correctamente
 
-  const index = data.findIndex(product => product.id === id)
-  data.splice(index, 1)
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8')
+  const filePath = path.join(__dirname, './products.json');
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  const data = JSON.parse(fileContent);
+
+  // Buscar el índice del producto en el array por su ID
+  const productoIndex = data.findIndex(product => product.id === id);
+
+  if (productoIndex !== -1) {
+    data.splice(productoIndex, 1); // Elimina el producto del array usando el índice
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    console.log('Producto eliminado correctamente.');
+  } else {
+    console.log('Producto no encontrado en el array.');
+  }
 }
-
-
-
